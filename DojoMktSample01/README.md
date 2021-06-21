@@ -8,6 +8,7 @@
 Participantes:
  - emicida
  - tropeco
+ - valdir
  - oissat
  - Rodrigo
  - igor
