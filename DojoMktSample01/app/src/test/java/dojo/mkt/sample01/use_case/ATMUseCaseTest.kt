@@ -30,5 +30,17 @@ class ATMUseCaseTest{
         assertThat(result.getOrNull()?.result).isEqualTo("0")
     }
 
+    @Test
+    fun `caso valor do saque seja 30 reais deve retornar 1 nota de 20 e 1 nota de 10`() = runBlocking {
+        // Dados e mocks
+        val params = ATMUseCase.Params(30)
+
+        // Execução
+        val result = atmUseCase.execute(params)
+
+        // Asserções e validações
+        assertThat(result.isSuccess).isTrue()
+        assertThat(result.getOrNull()?.result).isEqualTo("10")
+    }
 
 }

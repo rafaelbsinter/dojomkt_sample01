@@ -5,9 +5,12 @@ import java.lang.Exception
 
 class ATMUseCase {
 
-    class Params(value: Long)
+    data class Params(val value: Long)
 
     suspend fun execute(params: Params): Result<ATMModel> {
+
+        if (params.value == 0L) return Result.success(ATMModel("0"))
+
         return Result.failure(Exception("Não implementado"))
     }
 
