@@ -7,4 +7,4 @@
 
 Participantes:
  - emicida
- - valdir
+ - tropeco
