@@ -13,3 +13,4 @@ Participantes:
  - Rodrigo
  - igor
  - peterson
+ - André
