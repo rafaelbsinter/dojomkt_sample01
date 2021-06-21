@@ -7,4 +7,6 @@
 
 Participantes:
  - emicida
+ - tropeco
+ - oissat
  - igor
