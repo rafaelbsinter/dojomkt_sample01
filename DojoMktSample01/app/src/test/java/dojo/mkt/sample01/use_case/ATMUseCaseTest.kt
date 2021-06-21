@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNullOrEmpty
 import assertk.assertions.isTrue
+import dojo.mkt.sample01.model.Notas
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before
@@ -41,7 +42,7 @@ class ATMUseCaseTest{
 
         // Asserções e validações
         assertThat(result.isSuccess).isTrue()
-        assertThat(result.getOrNull()?.notas).is
+        assertThat(result.getOrNull()?.notas).isEqualTo(listOf(Notas.VINTE_REAIS, Notas.DEZ_REAIS))
     }
 
 }

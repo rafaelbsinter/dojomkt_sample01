@@ -2,36 +2,39 @@ package dojo.mkt.sample01.use_case
 
 import dojo.mkt.sample01.model.ATMModel
 import dojo.mkt.sample01.model.Notas
-import java.lang.Exception
 
 class ATMUseCase {
 
     data class Params(val value: Long)
 
-    val list = listOf(Notas.DEZ_REAIS,Notas.VINTE_REAIS, Notas.CINQUENTA_REAIS, Notas.CEM_REAIS).asReversed()
+    val list = listOf(
+        Notas.CEM_REAIS,
+        Notas.CINQUENTA_REAIS,
+        Notas.VINTE_REAIS,
+        Notas.DEZ_REAIS
+    )
 
     suspend fun execute(params: Params): Result<ATMModel> {
 
         if (params.value == 0L) return Result.success(ATMModel(listOf()))
 
         val result = mutableListOf<Notas>()
-        var valorSobrante = params.value
-       while (true) {
+        var valorRestante = params.value
 
-           list.forEach {
-               if (it.valor <= valorSobrante) {
-                   result.add(it)
-                   valorSobrante -= it.valor
-               }
-           }
+        while (valorRestante >= 0) {
 
-           if (valorSobrante == 0L) return Result.success(ATMModel(list))
-       }
+            list.forEach {
+                if (it.valor <= valorRestante) {
+                    result.add(it)
+                    valorRestante -= it.valor
+                }
+            }
+        }
 
+        return Result.success(ATMModel(result))
 
         return Result.failure(Exception("Não implementado"))
     }
-
 
 
 }
