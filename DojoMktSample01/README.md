@@ -8,3 +8,4 @@
 Participantes:
  - emicida
  - tropeco
+ - oissat
