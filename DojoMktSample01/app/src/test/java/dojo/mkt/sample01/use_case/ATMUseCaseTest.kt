@@ -2,6 +2,7 @@ package dojo.mkt.sample01.use_case
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isNullOrEmpty
 import assertk.assertions.isTrue
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
@@ -27,7 +28,7 @@ class ATMUseCaseTest{
 
         // Asserções e validações
         assertThat(result.isSuccess).isTrue()
-        assertThat(result.).isEqualTo(listOf<>())
+        assertThat(result.getOrNull()?.notas).isNullOrEmpty()
     }
 
     @Test
@@ -40,7 +41,7 @@ class ATMUseCaseTest{
 
         // Asserções e validações
         assertThat(result.isSuccess).isTrue()
-        assertThat(result.getOrNull()?.result).isEqualTo("10")
+        assertThat(result.getOrNull()?.notas).is
     }
 
 }
