@@ -11,3 +11,4 @@ Participantes:
  - oissat
  - Rodrigo
  - igor
+ - peterson
