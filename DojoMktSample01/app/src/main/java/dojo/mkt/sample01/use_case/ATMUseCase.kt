@@ -9,7 +9,9 @@ class ATMUseCase {
 
     suspend fun execute(params: Params): Result<ATMModel> {
 
-        if (params.value == 0L) return Result.success(ATMModel("0"))
+        if (params.value == 0L) return Result.success(ATMModel(listOf()))
+
+
 
         return Result.failure(Exception("Não implementado"))
     }

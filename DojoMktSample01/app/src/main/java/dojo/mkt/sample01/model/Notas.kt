@@ -1,9 +1,8 @@
 package dojo.mkt.sample01.model
 
-enum class Notas(val numero: Int, val valor: String) {
-    DEZ_REAIS(10, "10"),
-    VINTE_REAIS,
-
-
-
+enum class Notas(val numero: Int) {
+    DEZ_REAIS(10),
+    VINTE_REAIS(20),
+    CINQUENTA_REAIS(50),
+    CEM_REAIS(100)
 }

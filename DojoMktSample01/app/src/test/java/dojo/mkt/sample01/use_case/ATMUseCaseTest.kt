@@ -27,7 +27,7 @@ class ATMUseCaseTest{
 
         // Asserções e validações
         assertThat(result.isSuccess).isTrue()
-        assertThat(result.getOrNull()?.result).isEqualTo("0")
+        assertThat(result.).isEqualTo(listOf<>())
     }
 
     @Test
