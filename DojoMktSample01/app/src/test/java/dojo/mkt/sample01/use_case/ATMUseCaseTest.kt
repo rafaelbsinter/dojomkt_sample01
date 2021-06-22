@@ -126,4 +126,21 @@ class ATMUseCaseTest {
         assertThat(result.isSuccess).isTrue()
         assertThat(result.getOrNull()?.notas).isEqualTo(notas.plus(listOf(CINQUENTA_REAIS, VINTE_REAIS, DEZ_REAIS)))
     }
+
+    @Test
+    fun `caso o saldo limite seja menor, ele deve retornar errr0`() = runBlocking {
+        // Dados e mocks
+        val params = ATMUseCase.Params(
+            valorSaque = 1480,
+            saldoConta = 1500,
+            limite = 1300
+        )
+
+        // Execução
+        val result = atmUseCase.execute(params)
+
+        // Asserções e validações
+        assertThat(result.isFailure).isTrue()
+        assertThat(result.exceptionOrNull()?.message).isEqualTo("Saque indisponivel")
+    }
 }

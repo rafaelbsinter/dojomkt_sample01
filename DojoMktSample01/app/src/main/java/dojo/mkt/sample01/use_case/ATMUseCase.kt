@@ -12,13 +12,6 @@ class ATMUseCase {
 
     )
 
-    val list = listOf(
-        Notas.CEM_REAIS,
-        Notas.CINQUENTA_REAIS,
-        Notas.VINTE_REAIS,
-        Notas.DEZ_REAIS
-    )
-
     suspend fun execute(params: Params): Result<ATMModel> {
 
         var valorRestante = params.valorSaque
@@ -32,7 +25,7 @@ class ATMUseCase {
 
         val notas = mutableListOf<Notas>()
 
-        list.forEach {
+        getNotas().forEach {
             while (valorRestante >= it.valor) {
                 notas.add(it)
                 valorRestante -= it.valor
@@ -41,4 +34,13 @@ class ATMUseCase {
 
         return Result.success(ATMModel(notas))
     }
+
+    private fun getNotas() = listOf(
+            Notas.DEZ_REAIS,
+            Notas.CEM_REAIS,
+            Notas.CINQUENTA_REAIS,
+            Notas.VINTE_REAIS
+        ).sortedByDescending {
+            it.valor
+        }
 }
