@@ -8,7 +8,8 @@ class ATMUseCase {
     data class Params(
         val valorSaque: Long,
         val saldoConta: Long = Long.MAX_VALUE,
-        val limiteSaqueATM: Long = Long.MAX_VALUE
+        val limiteSaqueATM: Long = Long.MAX_VALUE,
+        val notasDisponiveis : Map<Int,Notas> = mapOf(Int.MAX_VALUE to Notas.DEZ_REAIS)
     )
 
     suspend fun execute(params: Params): Result<ATMModel> {
