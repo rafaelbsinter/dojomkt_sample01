@@ -5,7 +5,12 @@ import dojo.mkt.sample01.model.Notas
 
 class ATMUseCase {
 
-    data class Params(val value: Long, val saldo: Long = Long.MAX_VALUE)
+    data class Params(
+        val valor: Long,
+        val saldo: Long = Long.MAX_VALUE,
+        val limite: Long = 500
+
+    )
 
     val list = listOf(
         Notas.CEM_REAIS,
@@ -16,16 +21,15 @@ class ATMUseCase {
 
     suspend fun execute(params: Params): Result<ATMModel> {
 
+        var valorRestante = params.value
+
         if (params.value <= 0L || params.value % 10 > 0)
             return Result.failure(exception = Exception("Saque indisponivel"))
 
-        if()
-
-        var valorRestante = params.value
-
+        if(params.saldo < params.value)
+            return Result.failure(exception = Exception("Saque indisponivel"))
 
         val notas = mutableListOf<Notas>()
-
 
         list.forEach {
             while (valorRestante >= it.valor) {
@@ -36,6 +40,5 @@ class ATMUseCase {
 
         return Result.success(ATMModel(notas))
     }
-
 
 }
