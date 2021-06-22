@@ -55,7 +55,7 @@ class ATMUseCaseTest{
 
         // Asserções e validações
         assertThat(result.isFailure).isTrue()
-        assertThat(result.getOrNull()?.notas).isEqualTo("o valor do saque é inválido")
+        assertThat(result.exceptionOrNull()?.message).isEqualTo("o valor do saque é inválido")
     }
 
 }

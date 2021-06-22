@@ -14,19 +14,16 @@ class ATMUseCase {
         Notas.DEZ_REAIS
     )
 
-    private fun validatarSaque(value: Int){
-
-    }
-
     suspend fun execute(params: Params): Result<ATMModel> {
 
-        //if (params.value == 0L) return Result.success(ATMModel(listOf()))
+        if (params.value == 0L) return Result.success(ATMModel(listOf()))
+
+        if (params.value % 10 > 0) {
+            return Result.failure(exception = Exception("Saque indisponivel"))
+        }
 
         var valorRestante = params.value
 
-        if (validatarSaque(valorRestante)){
-
-        }
 
         val notas = mutableListOf<Notas>()
 
