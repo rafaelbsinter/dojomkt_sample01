@@ -10,8 +10,7 @@ class ATMUseCase {
         val saldoConta: Long = Long.MAX_VALUE,
         val limiteSaqueATM: Long = Long.MAX_VALUE,
         val notasDisponiveis : Map<Int,Notas> = mapOf(
-            Int.MAX_VALUE to Notas.VINTE_REAIS,
-            4 to Notas.VINTE_REAIS
+            Int.MAX_VALUE to Notas.VINTE_REAIS
         )
     )
 
@@ -31,6 +30,9 @@ class ATMUseCase {
 
         getNotas().forEach {
             while (valorRestante >= it.valor){
+
+                params.notasDisponiveis.
+
                 notas.add(it)
 
                 valorRestante -= it.valor
@@ -41,11 +43,11 @@ class ATMUseCase {
     }
 
     private fun getNotas() = listOf(
-            Notas.DEZ_REAIS,
-            Notas.CEM_REAIS,
-            Notas.CINQUENTA_REAIS,
-            Notas.VINTE_REAIS
-        ).sortedByDescending {
-            it.valor
-        }
+        Notas.DEZ_REAIS,
+        Notas.CEM_REAIS,
+        Notas.CINQUENTA_REAIS,
+        Notas.VINTE_REAIS
+    ).sortedByDescending {
+        it.valor
+    }
 }

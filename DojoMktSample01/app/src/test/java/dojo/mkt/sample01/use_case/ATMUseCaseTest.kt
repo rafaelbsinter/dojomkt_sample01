@@ -148,7 +148,9 @@ class ATMUseCaseTest {
     fun `caso o o saque seja 80 reais e so tenha nota de 20 deve retornar 4 notas de 20`() = runBlocking {
         // Dados e mocks
         val params = ATMUseCase.Params(
-            valorSaque = 80
+            valorSaque = 80,
+            notasDisponiveis = mapOf(
+                4 to Notas.VINTE_REAIS)
         )
 
         // Execução
