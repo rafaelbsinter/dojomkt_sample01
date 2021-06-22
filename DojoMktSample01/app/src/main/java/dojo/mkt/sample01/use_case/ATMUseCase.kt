@@ -10,8 +10,8 @@ class ATMUseCase {
         val saldoConta: Long = Long.MAX_VALUE,
         val limiteSaqueATM: Long = Long.MAX_VALUE,
         val notasDisponiveis : Map<Int,Notas> = mapOf(
-            Int.MAX_VALUE to Notas.DEZ_REAIS,
-
+            Int.MAX_VALUE to Notas.VINTE_REAIS,
+            4 to Notas.VINTE_REAIS
         )
     )
 
@@ -22,7 +22,7 @@ class ATMUseCase {
         val valorNegativoOuZerado = valorRestante <= 0L
         val menorNotaDisponivel = valorRestante % 10 > 0
         val saldoNaoDisponivel = params.saldoConta < valorRestante
-        val limiteNaoDisponivelATM = params.limiteSaqueATM < params.valorSaque
+        val limiteNaoDisponivelATM = params.limiteSaqueATM < valorRestante
 
         if (valorNegativoOuZerado || menorNotaDisponivel || saldoNaoDisponivel || limiteNaoDisponivelATM)
             return Result.failure(exception = Exception("Saque indisponivel"))
@@ -32,6 +32,7 @@ class ATMUseCase {
         getNotas().forEach {
             while (valorRestante >= it.valor){
                 notas.add(it)
+
                 valorRestante -= it.valor
             }
         }
