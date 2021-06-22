@@ -8,7 +8,7 @@ class ATMUseCase {
     data class Params(
         val valorSaque: Long,
         val saldoConta: Long = Long.MAX_VALUE,
-        val limite: Long = 500
+        val limite: Long = Long.MAX_VALUE
 
     )
 
@@ -18,9 +18,10 @@ class ATMUseCase {
 
         val valorNegativoOuZerado = valorRestante <= 0L
         val menorNotaDisponivel = valorRestante % 10 > 0
-        val saldoPositivo = params.saldoConta < valorRestante
+        val saldoNaoDisponivel = params.saldoConta < valorRestante
+        val limiteNaoDisponivelATM = params.limite < params.valorSaque
 
-        if (valorNegativoOuZerado || menorNotaDisponivel || saldoPositivo)
+        if (valorNegativoOuZerado || menorNotaDisponivel || saldoNaoDisponivel || limiteNaoDisponivelATM)
             return Result.failure(exception = Exception("Saque indisponivel"))
 
         val notas = mutableListOf<Notas>()
