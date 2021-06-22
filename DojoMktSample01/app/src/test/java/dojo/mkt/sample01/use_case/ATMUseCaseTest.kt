@@ -45,4 +45,17 @@ class ATMUseCaseTest{
         assertThat(result.getOrNull()?.notas).isEqualTo(listOf(Notas.VINTE_REAIS, Notas.DEZ_REAIS))
     }
 
+    @Test
+    fun `caso valor do saque seja 57 reais deve retornar um erro`() = runBlocking {
+        // Dados e mocks
+        val params = ATMUseCase.Params(57)
+
+        // Execução
+        val result = atmUseCase.execute(params)
+
+        // Asserções e validações
+        assertThat(result.isFailure).isTrue()
+        assertThat(result.getOrNull()?.notas).isEqualTo("o valor do saque é inválido")
+    }
+
 }

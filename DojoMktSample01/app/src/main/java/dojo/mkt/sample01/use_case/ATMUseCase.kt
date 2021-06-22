@@ -14,26 +14,31 @@ class ATMUseCase {
         Notas.DEZ_REAIS
     )
 
+    private fun validatarSaque(value: Int){
+
+    }
+
     suspend fun execute(params: Params): Result<ATMModel> {
 
-        if (params.value == 0L) return Result.success(ATMModel(listOf()))
+        //if (params.value == 0L) return Result.success(ATMModel(listOf()))
 
-        val result = mutableListOf<Notas>()
         var valorRestante = params.value
 
-        while (valorRestante >= 0) {
+        if (validatarSaque(valorRestante)){
 
-            list.forEach {
-                if (it.valor <= valorRestante) {
-                    result.add(it)
-                    valorRestante -= it.valor
-                }
+        }
+
+        val notas = mutableListOf<Notas>()
+
+
+        list.forEach {
+            while (valorRestante >= it.valor ) {
+                notas.add(it)
+                valorRestante -= it.valor
             }
         }
 
-        return Result.success(ATMModel(result))
-
-        return Result.failure(Exception("Não implementado"))
+        return Result.success(ATMModel(notas))
     }
 
 
