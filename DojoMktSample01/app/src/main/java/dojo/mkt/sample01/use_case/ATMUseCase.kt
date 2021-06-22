@@ -16,11 +16,8 @@ class ATMUseCase {
 
     suspend fun execute(params: Params): Result<ATMModel> {
 
-        if (params.value == 0L) return Result.success(ATMModel(listOf()))
-
-        if (params.value % 10 > 0) {
+        if (params.value == 0L || params.value % 10 > 0)
             return Result.failure(exception = Exception("Saque indisponivel"))
-        }
 
         var valorRestante = params.value
 
