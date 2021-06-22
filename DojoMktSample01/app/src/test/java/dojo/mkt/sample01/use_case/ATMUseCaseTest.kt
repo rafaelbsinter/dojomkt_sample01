@@ -29,8 +29,8 @@ class ATMUseCaseTest{
         val result = atmUseCase.execute(params)
 
         // Asserções e validações
-        assertThat(result.isSuccess).isTrue()
-        assertThat(result.getOrNull()?.notas).isNullOrEmpty()
+        assertThat(result.isFailure).isTrue()
+        assertThat(result.exceptionOrNull()?.message).isEqualTo("Saque indisponivel")
     }
 
     @Test
@@ -70,6 +70,32 @@ class ATMUseCaseTest{
         // Asserções e validações
         assertThat(result.isSuccess).isTrue()
         assertThat(result.getOrNull()?.notas).isEqualTo(listOf(CEM_REAIS, CINQUENTA_REAIS, VINTE_REAIS, VINTE_REAIS))
+    }
+
+    @Test
+    fun `caso valor do saque seja menor que 0 deve retornar erro`() = runBlocking {
+        // Dados e mocks
+        val params = ATMUseCase.Params(-190)
+
+        // Execução
+        val result = atmUseCase.execute(params)
+
+        // Asserções e validações
+        assertThat(result.isFailure).isTrue()
+        assertThat(result.exceptionOrNull()?.message).isEqualTo("Saque indisponivel")
+    }
+
+    @Test
+    fun `caso o saldo seja menor do que o saque retornar erro`() = runBlocking {
+        // Dados e mocks
+        val params = ATMUseCase.Params(190, 30)
+
+        // Execução
+        val result = atmUseCase.execute(params)
+
+        // Asserções e validações
+        assertThat(result.isFailure).isTrue()
+        assertThat(result.exceptionOrNull()?.message).isEqualTo("Saque indisponivel")
     }
 
 }

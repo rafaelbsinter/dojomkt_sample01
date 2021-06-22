@@ -5,7 +5,7 @@ import dojo.mkt.sample01.model.Notas
 
 class ATMUseCase {
 
-    data class Params(val value: Long)
+    data class Params(val value: Long, val saldo: Long = Long.MAX_VALUE)
 
     val list = listOf(
         Notas.CEM_REAIS,
@@ -16,8 +16,10 @@ class ATMUseCase {
 
     suspend fun execute(params: Params): Result<ATMModel> {
 
-        if (params.value == 0L || params.value % 10 > 0)
+        if (params.value <= 0L || params.value % 10 > 0)
             return Result.failure(exception = Exception("Saque indisponivel"))
+
+        if()
 
         var valorRestante = params.value
 
@@ -26,7 +28,7 @@ class ATMUseCase {
 
 
         list.forEach {
-            while (valorRestante >= it.valor ) {
+            while (valorRestante >= it.valor) {
                 notas.add(it)
                 valorRestante -= it.valor
             }
