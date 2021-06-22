@@ -21,12 +21,14 @@ class ATMUseCase {
 
     suspend fun execute(params: Params): Result<ATMModel> {
 
-        var valorRestante = params.value
+        var valorRestante = params.valor
+        var valorNegativoOuZerado = valorRestante <= 0L
+        val menorNotaDisponivel = valorRestante % 10 > 0
 
-        if (params.value <= 0L || params.value % 10 > 0)
+        if (valorRestante % 10 > 0)
             return Result.failure(exception = Exception("Saque indisponivel"))
 
-        if(params.saldo < params.value)
+        if(params.saldo < valorRestante)
             return Result.failure(exception = Exception("Saque indisponivel"))
 
         val notas = mutableListOf<Notas>()
