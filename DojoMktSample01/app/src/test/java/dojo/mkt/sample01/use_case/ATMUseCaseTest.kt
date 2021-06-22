@@ -117,10 +117,13 @@ class ATMUseCaseTest {
         // Execução
         val result = atmUseCase.execute(params)
 
+        val notas = mutableListOf<Notas>()
+        repeat(14){
+            notas.add(CEM_REAIS)
+        }
+
         // Asserções e validações
         assertThat(result.isSuccess).isTrue()
-        assertThat(result.getOrNull()?.notas).isEqualTo(listOf(
-
-        ))
+        assertThat(result.getOrNull()?.notas).isEqualTo(notas.plus(listOf(CINQUENTA_REAIS, VINTE_REAIS, DEZ_REAIS)))
     }
 }
