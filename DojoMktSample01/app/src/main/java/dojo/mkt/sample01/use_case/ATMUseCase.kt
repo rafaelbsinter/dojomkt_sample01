@@ -8,8 +8,7 @@ class ATMUseCase {
     data class Params(
         val valorSaque: Long,
         val saldoConta: Long = Long.MAX_VALUE,
-        val limite: Long = Long.MAX_VALUE
-
+        val limiteSaqueATM: Long = Long.MAX_VALUE
     )
 
     suspend fun execute(params: Params): Result<ATMModel> {
@@ -19,7 +18,7 @@ class ATMUseCase {
         val valorNegativoOuZerado = valorRestante <= 0L
         val menorNotaDisponivel = valorRestante % 10 > 0
         val saldoNaoDisponivel = params.saldoConta < valorRestante
-        val limiteNaoDisponivelATM = params.limite < params.valorSaque
+        val limiteNaoDisponivelATM = params.limiteSaqueATM < params.valorSaque
 
         if (valorNegativoOuZerado || menorNotaDisponivel || saldoNaoDisponivel || limiteNaoDisponivelATM)
             return Result.failure(exception = Exception("Saque indisponivel"))
@@ -27,7 +26,7 @@ class ATMUseCase {
         val notas = mutableListOf<Notas>()
 
         getNotas().forEach {
-            while (valorRestante >= it.valor) {
+            while (valorRestante >= it.valor){
                 notas.add(it)
                 valorRestante -= it.valor
             }

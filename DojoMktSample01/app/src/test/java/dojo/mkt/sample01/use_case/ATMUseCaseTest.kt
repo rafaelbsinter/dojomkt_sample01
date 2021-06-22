@@ -111,7 +111,7 @@ class ATMUseCaseTest {
         val params = ATMUseCase.Params(
             valorSaque = 1480,
             saldoConta = 1500,
-            limite = 1500
+            limiteSaqueATM = 1500
         )
 
         // Execução
@@ -133,7 +133,7 @@ class ATMUseCaseTest {
         val params = ATMUseCase.Params(
             valorSaque = 1480,
             saldoConta = 1500,
-            limite = 1300
+            limiteSaqueATM = 1300
         )
 
         // Execução
