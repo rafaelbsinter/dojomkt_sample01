@@ -150,7 +150,8 @@ class ATMUseCaseTest {
         val params = ATMUseCase.Params(
             valorSaque = 80,
             notasDisponiveis = mapOf(
-                4 to Notas.VINTE_REAIS)
+                Notas.VINTE_REAIS to 4
+            )
         )
 
         // Execução
