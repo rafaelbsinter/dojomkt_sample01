@@ -21,6 +21,9 @@ class ATMUseCase {
 
         var valorRestante = params.valorSaque
 
+        val notasDisponiveis = params.notasDisponiveis
+
+
         val valorNegativoOuZerado = valorRestante <= 0L
         val menorNotaDisponivel = valorRestante % 10 > 0
         val saldoNaoDisponivel = params.saldoConta < valorRestante
