@@ -21,17 +21,12 @@ class ATMUseCase {
 
         var valorRestante = params.valorSaque
 
-        val notasDisponiveis = params.notasDisponiveis
-
-
         val valorNegativoOuZerado = valorRestante <= 0L
-        val menorNotaDisponivel = valorRestante % (params.notasDisponiveis.keys.minOrNull()?.valor
-            ?: 0 ) > 0
-        val saqueImpossivel = valorRestante % (notasDisponiveis.keys.maxByOrNull { it.valor }!!.valor) > 0
+        val menorNotaDisponivel = valorRestante % 10 > 0
         val saldoNaoDisponivel = params.saldoConta < valorRestante
         val limiteNaoDisponivelATM = params.limiteSaqueATM < valorRestante
 
-        if (valorNegativoOuZerado || saqueImpossivel || saldoNaoDisponivel || limiteNaoDisponivelATM)
+        if (valorNegativoOuZerado || menorNotaDisponivel || saldoNaoDisponivel || limiteNaoDisponivelATM)
             return Result.failure(exception = Exception("Saque indisponivel"))
 
         val notas = mutableListOf<Notas>()
@@ -44,6 +39,8 @@ class ATMUseCase {
                 valorRestante -= it.valor
             }
         }
+
+        if (valorRestante > 0) return Result.failure(exception = Exception("Saque indisponivel"))
 
         return Result.success(ATMModel(notas))
     }
