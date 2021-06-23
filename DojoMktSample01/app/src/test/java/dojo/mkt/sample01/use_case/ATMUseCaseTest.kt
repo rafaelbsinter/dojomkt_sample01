@@ -169,4 +169,22 @@ class ATMUseCaseTest {
         )
     }
 
+    @Test
+    fun `caso o o saque seja 90 reais e so tenha nota de 20 deve retornar ERRO`() = runBlocking {
+        // Dados e mocks
+        val params = ATMUseCase.Params(
+            valorSaque = 90,
+            notasDisponiveis = mapOf(
+                Notas.VINTE_REAIS to Int.MAX_VALUE
+            )
+        )
+
+        // Execução
+        val result = atmUseCase.execute(params)
+
+        // Asserções e validações
+        assertThat(result.isFailure).isTrue()
+        assertThat(result.exceptionOrNull()?.message).isEqualTo("Saque indisponivel")
+    }
+
 }
