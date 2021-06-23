@@ -25,11 +25,11 @@ class ATMUseCase {
 
 
         val valorNegativoOuZerado = valorRestante <= 0L
-        val menorNotaDisponivel = valorRestante % 10 > 0
+        val saqueImpossivel = valorRestante % (notasDisponiveis.keys.maxByOrNull { it.valor }!!.valor) > 0
         val saldoNaoDisponivel = params.saldoConta < valorRestante
         val limiteNaoDisponivelATM = params.limiteSaqueATM < valorRestante
 
-        if (valorNegativoOuZerado || menorNotaDisponivel || saldoNaoDisponivel || limiteNaoDisponivelATM)
+        if (valorNegativoOuZerado || saqueImpossivel || saldoNaoDisponivel || limiteNaoDisponivelATM)
             return Result.failure(exception = Exception("Saque indisponivel"))
 
         val notas = mutableListOf<Notas>()
