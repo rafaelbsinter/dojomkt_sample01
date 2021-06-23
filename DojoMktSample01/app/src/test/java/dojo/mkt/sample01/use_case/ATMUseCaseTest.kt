@@ -2,6 +2,7 @@ package dojo.mkt.sample01.use_case
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
 import assertk.assertions.isTrue
 import dojo.mkt.sample01.model.Notas
 import dojo.mkt.sample01.model.Notas.*
