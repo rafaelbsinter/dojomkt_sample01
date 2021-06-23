@@ -25,6 +25,8 @@ class ATMUseCase {
 
 
         val valorNegativoOuZerado = valorRestante <= 0L
+        val menorNotaDisponivel = valorRestante % (params.notasDisponiveis.keys.minOrNull()?.valor
+            ?: 0 ) > 0
         val saqueImpossivel = valorRestante % (notasDisponiveis.keys.maxByOrNull { it.valor }!!.valor) > 0
         val saldoNaoDisponivel = params.saldoConta < valorRestante
         val limiteNaoDisponivelATM = params.limiteSaqueATM < valorRestante
